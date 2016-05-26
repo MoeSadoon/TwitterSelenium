@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System;
@@ -19,8 +20,9 @@ namespace TwitterSelenium
         [SetUp]
         public void Initialize()
         {
-            //Collections.driver = new FirefoxDriver();
-            Collections.driver = new ChromeDriver(@"C:\Users\Moe Sadoon\Documents\Visual Studio 2015\Projects\Selenium\TwitterSelenium");
+            //This initializes the Collections.driver by assinging it the specified browser driver from the Drivers enum
+            Driver.StartUp(Drivers.Chrome); // This equates to: Collections.driver = new ChromeDriver(@"C:\Users\Moe Sadoon\Documents\Visual Studio 2015\Projects\Selenium\TwitterSelenium");
+         
             Collections.driver.Navigate().GoToUrl("https://twitter.com/login");
         }
 
@@ -30,13 +32,11 @@ namespace TwitterSelenium
             //Initialise login page object
             LoginHomePage loginPage = new LoginHomePage();
 
-            //Login method initialises profile page object
-            ProfilePage profilePage = loginPage.Login("[YourUsername]","[YourPassword]");
+            //Replace with your own Twitter credentials
+            ProfilePage profilePage = loginPage.Login("Username","Password");
 
             //Post tweet from profile page
             profilePage.PostTweet("Hello this is my first automated tweet!");
-
-            Thread.Sleep(3000);
 
             //Delete Tweet
             profilePage.DeleteTweet();

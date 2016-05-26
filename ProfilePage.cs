@@ -35,8 +35,6 @@ namespace TwitterSelenium
         public IWebElement FinalDeleteBtn { get; set; }
 
 
-
-
         public void PostTweet(string tweet)
         {
             TweetBox.SendKeys(tweet);
@@ -45,10 +43,9 @@ namespace TwitterSelenium
 
         public void DeleteTweet()
         {
-            //Wait for TweetOptions button to be available
-            WebDriverWait wait = new WebDriverWait(Collections.driver, TimeSpan.FromSeconds(2));
-            wait.Until(driver => TweetOptions.Displayed);
-            
+            //Extended method which waits for TweetOptions button
+            Collections.driver.WaitForElement(TweetOptions, 2);
+        
             TweetOptions.Click();
             DeleteBtn.Click();
             FinalDeleteBtn.Click(); 
